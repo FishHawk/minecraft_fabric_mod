@@ -1,7 +1,8 @@
 package net.fabricmc.example
 
 import net.fabricmc.api.ModInitializer
-import net.fabricmc.example.item.Test
+import net.fabricmc.example.registry.RegisterBlock
+import net.fabricmc.example.registry.RegisterItem
 import org.slf4j.LoggerFactory
 
 
@@ -21,6 +22,7 @@ class ExampleMod : ModInitializer {
         // However, some things (like resources) may still be uninitialized.
         // Proceed with mild caution.
         LOGGER.info("Hello Fabric world!");
-        Test.registerItems()
+        RegisterBlock.registerAll()
+        RegisterItem.registerAll()
     }
 }

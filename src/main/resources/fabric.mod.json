@@ -27,7 +27,7 @@
     "fabric-datagen": [
       {
         "adapter": "kotlin",
-        "value": "net.fabricmc.example.MyModDatagen"
+        "value": "net.fabricmc.example.generator.Entrypoint"
       }
     ]
   },

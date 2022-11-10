@@ -1,5 +1,7 @@
 package net.fabricmc.example.item
 
+import net.fabricmc.example.registry.RegisterItem.ADAMANTITE_INGOT
+import net.fabricmc.example.registry.RegisterItem.MITHRIL_INGOT
 import net.minecraft.block.BlockState
 import net.minecraft.entity.EquipmentSlot
 import net.minecraft.entity.LivingEntity
@@ -141,79 +143,86 @@ class MyHoeItem(material: ToolMaterial, attackDamage: Int, attackSpeed: Float) :
     }
 }
 
-enum class ToolMaterials(
-    private val miningLevel: Int,
-    private val durabilityMultiplier: Int,
-    private val miningSpeed: Float,
-    private val attackDamage: Float,
-    private val enchantability: Int,
-    private val repairIngredient: () -> Ingredient,
-) : ToolMaterial {
-    GOLD(0, 1, 12.0f, 0.0f, 22, { Ingredient.ofItems(Items.GOLD_INGOT) }),
-
-    COPPER(1, 1, 2.0f, 0.0f, 5, { Ingredient.ofItems(Items.COPPER_INGOT) }),
-    IRON(2, 2, 4.0f, 1.0f, 10, { Ingredient.ofItems(Items.IRON_INGOT) }),
-    MITHRIL(3, 4, 6.0f, 2.0f, 15, { Ingredient.ofItems(MITHRIL_INGOT) }),
-    ADAMANTITE(4, 16, 8.0f, 3.0f, 20, { Ingredient.ofItems(ADAMANTITE_INGOT) });
-
-    override fun getDurability(): Int = durabilityMultiplier * BASE_DURABILITY
-    override fun getMiningSpeedMultiplier(): Float = miningSpeed
-    override fun getAttackDamage(): Float = attackDamage
-    override fun getMiningLevel(): Int = miningLevel
-    override fun getEnchantability(): Int = enchantability
-    override fun getRepairIngredient(): Ingredient = repairIngredient()
-
-    companion object {
-        private const val BASE_DURABILITY = 80
+private fun toolMaterial(
+    miningLevel: Int,
+    durability: Int,
+    miningSpeed: Float,
+    attackDamage: Float,
+    enchantability: Int,
+    repairIngredient: () -> Ingredient,
+): ToolMaterial {
+    return object : ToolMaterial {
+        override fun getDurability(): Int = durability
+        override fun getMiningSpeedMultiplier(): Float = miningSpeed
+        override fun getAttackDamage(): Float = attackDamage
+        override fun getMiningLevel(): Int = miningLevel
+        override fun getEnchantability(): Int = enchantability
+        override fun getRepairIngredient(): Ingredient = repairIngredient()
     }
 }
 
-private val COPPER_SWORD = MySwordItem(ToolMaterials.COPPER, 4, -2.8F)
-private val COPPER_PICKAXE = MyPickaxeItem(ToolMaterials.COPPER, 2f, -2.8f)
-private val COPPER_SHOVEL = MyShovelItem(ToolMaterials.COPPER, 1f, -3f)
-private val COPPER_AXE = MyAxeItem(ToolMaterials.COPPER, 3f, -3f)
-private val COPPER_HOE = MyHoeItem(ToolMaterials.COPPER, 1, -3f)
-
-private val IRON_SWORD = MySwordItem(ToolMaterials.IRON, 4, -2.8F)
-private val IRON_PICKAXE = MyPickaxeItem(ToolMaterials.IRON, 2f, -2.8f)
-private val IRON_SHOVEL = MyShovelItem(ToolMaterials.IRON, 1f, -3f)
-private val IRON_AXE = MyAxeItem(ToolMaterials.IRON, 3f, -3f)
-private val IRON_HOE = MyHoeItem(ToolMaterials.IRON, 1, -3f)
-
-private val MITHRIL_SWORD = MySwordItem(ToolMaterials.MITHRIL, 4, -2.4F)
-private val MITHRIL_PICKAXE = MyPickaxeItem(ToolMaterials.MITHRIL, 2f, -2.8f)
-private val MITHRIL_SHOVEL = MyShovelItem(ToolMaterials.MITHRIL, 1f, -3f)
-private val MITHRIL_AXE = MyAxeItem(ToolMaterials.MITHRIL, 3f, -3f)
-private val MITHRIL_HOE = MyHoeItem(ToolMaterials.MITHRIL, 1, -3f)
-
-private val ADAMANTITE_SWORD = MySwordItem(ToolMaterials.ADAMANTITE, 4, -2.4F)
-private val ADAMANTITE_PICKAXE = MyPickaxeItem(ToolMaterials.ADAMANTITE, 2f, -2.8f)
-private val ADAMANTITE_SHOVEL = MyShovelItem(ToolMaterials.ADAMANTITE, 1f, -3f)
-private val ADAMANTITE_AXE = MyAxeItem(ToolMaterials.ADAMANTITE, 3f, -3f)
-private val ADAMANTITE_HOE = MyHoeItem(ToolMaterials.ADAMANTITE, 1, -3f)
-
-val toolItems = listOf<Pair<String, Item>>(
-    "tools/copper_sword" to COPPER_SWORD,
-    "tools/copper_pickaxe" to COPPER_PICKAXE,
-    "tools/copper_shovel" to COPPER_SHOVEL,
-    "tools/copper_axe" to COPPER_AXE,
-    "tools/copper_hoe" to COPPER_HOE,
-
-    "tools/iron_sword" to IRON_SWORD,
-    "tools/iron_pickaxe" to IRON_PICKAXE,
-    "tools/iron_shovel" to IRON_SHOVEL,
-    "tools/iron_axe" to IRON_AXE,
-    "tools/iron_hoe" to IRON_HOE,
-
-    "tools/mithril_sword" to MITHRIL_SWORD,
-    "tools/mithril_pickaxe" to MITHRIL_PICKAXE,
-    "tools/mithril_shovel" to MITHRIL_SHOVEL,
-    "tools/mithril_axe" to MITHRIL_AXE,
-    "tools/mithril_hoe" to MITHRIL_HOE,
-
-    "tools/adamantite_sword" to ADAMANTITE_SWORD,
-    "tools/adamantite_pickaxe" to ADAMANTITE_PICKAXE,
-    "tools/adamantite_shovel" to ADAMANTITE_SHOVEL,
-    "tools/adamantite_axe" to ADAMANTITE_AXE,
-    "tools/adamantite_hoe" to ADAMANTITE_HOE,
+private fun flintToolMaterial(durability: Int) = toolMaterial(
+    miningLevel = 0,
+    durability = durability,
+    miningSpeed = 1.0f,
+    attackDamage = 0.0f,
+    enchantability = 0,
+    repairIngredient = { Ingredient.EMPTY },
 )
+
+private fun copperToolMaterial(durability: Int) = toolMaterial(
+    miningLevel = 1,
+    durability = durability,
+    miningSpeed = 2.0f,
+    attackDamage = 0.0f,
+    enchantability = 5,
+    repairIngredient = { Ingredient.ofItems(Items.COPPER_INGOT) },
+)
+
+private fun ironToolMaterial(durability: Int) = toolMaterial(
+    miningLevel = 2,
+    durability = durability,
+    miningSpeed = 4.0f,
+    attackDamage = 1.0f,
+    enchantability = 10,
+    repairIngredient = { Ingredient.ofItems(Items.IRON_INGOT) },
+)
+
+private fun mithrilToolMaterial(durability: Int) = toolMaterial(
+    miningLevel = 3,
+    durability = durability,
+    miningSpeed = 6.0f,
+    attackDamage = 2.0f,
+    enchantability = 15,
+    repairIngredient = { Ingredient.ofItems(MITHRIL_INGOT) },
+)
+
+private fun adamantiteToolMaterial(durability: Int) = toolMaterial(
+    miningLevel = 4,
+    durability = durability,
+    miningSpeed = 8.0f,
+    attackDamage = 3.0f,
+    enchantability = 20,
+    repairIngredient = { Ingredient.ofItems(ADAMANTITE_INGOT) }
+)
+
+private fun goldToolMaterial(durability: Int) = toolMaterial(
+    miningLevel = 1,
+    durability = durability,
+    miningSpeed = 12.0f,
+    attackDamage = 0.0f,
+    enchantability = 22,
+    repairIngredient = { Ingredient.ofItems(Items.GOLD_INGOT) }
+)
+
+object ToolMaterials {
+    val FLINT_HATCHET = flintToolMaterial(3)
+    val FLINT = flintToolMaterial(12)
+
+    val COPPER = copperToolMaterial(1 * 80)
+    val IRON = ironToolMaterial(2 * 80)
+    val MITHRIL = mithrilToolMaterial(4 * 80)
+    val ADAMANTITE = adamantiteToolMaterial(16 * 80)
+
+    val GOLD = goldToolMaterial(1 * 80)
+}
