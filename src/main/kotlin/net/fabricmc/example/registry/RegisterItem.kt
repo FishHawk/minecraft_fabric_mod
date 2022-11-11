@@ -1,11 +1,6 @@
 package net.fabricmc.example.registry
 
 import net.fabricmc.example.item.*
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider
-import net.minecraft.data.client.BlockStateModelGenerator
-import net.minecraft.data.client.ItemModelGenerator
-import net.minecraft.data.client.Models
 import net.minecraft.item.Item
 import net.minecraft.item.ItemGroup
 import net.minecraft.util.Identifier
@@ -23,33 +18,35 @@ object RegisterItem {
     val ADAMANTITE_NUGGET = Item(Item.Settings().group(ItemGroup.MISC))
     val RAW_ADAMANTITE = Item(Item.Settings().group(ItemGroup.MISC))
 
-    val FLINT_HATCHET = MyAxeItem(ToolMaterials.FLINT_HATCHET, 3f, -3f)
-    val FLINT_SHOVEL = MyShovelItem(ToolMaterials.FLINT, 2f, -3f)
-    val FLINT_AXE = MyAxeItem(ToolMaterials.FLINT, 4f, -3f)
+    val FLINT_KNIFE = MySwordItem(ToolMaterials.FLINT_HANDMADE_1, 2, -2.8f)
+    val FLINT_HATCHET = MyAxeItem(ToolMaterials.FLINT_HANDMADE_1, 2, -3f)
 
-    val COPPER_SWORD = MySwordItem(ToolMaterials.COPPER, 4, -2.8F)
-    val COPPER_PICKAXE = MyPickaxeItem(ToolMaterials.COPPER, 2f, -2.8f)
-    val COPPER_SHOVEL = MyShovelItem(ToolMaterials.COPPER, 1f, -3f)
-    val COPPER_AXE = MyAxeItem(ToolMaterials.COPPER, 3f, -3f)
-    val COPPER_HOE = MyHoeItem(ToolMaterials.COPPER, 1, -3f)
+    val FLINT_AXE = MyAxeItem(ToolMaterials.FLINT_3, 4, -3f)
+    val FLINT_SHOVEL = MyShovelItem(ToolMaterials.FLINT_1, 2, -3f)
 
-    val IRON_SWORD = MySwordItem(ToolMaterials.IRON, 4, -2.8F)
-    val IRON_PICKAXE = MyPickaxeItem(ToolMaterials.IRON, 2f, -2.8f)
-    val IRON_SHOVEL = MyShovelItem(ToolMaterials.IRON, 1f, -3f)
-    val IRON_AXE = MyAxeItem(ToolMaterials.IRON, 3f, -3f)
-    val IRON_HOE = MyHoeItem(ToolMaterials.IRON, 1, -3f)
+    val COPPER_SWORD = MySwordItem(ToolMaterials.COPPER_2, 7, -2.8F)
+    val COPPER_AXE = MyAxeItem(ToolMaterials.COPPER_3, 6, -3f)
+    val COPPER_PICKAXE = MyPickaxeItem(ToolMaterials.COPPER_3, 5, -2.8f)
+    val COPPER_SHOVEL = MyShovelItem(ToolMaterials.COPPER_1, 4, -3f)
+    val COPPER_HOE = MyHoeItem(ToolMaterials.COPPER_2, 4, -3f)
 
-    val MITHRIL_SWORD = MySwordItem(ToolMaterials.MITHRIL, 4, -2.4F)
-    val MITHRIL_PICKAXE = MyPickaxeItem(ToolMaterials.MITHRIL, 2f, -2.8f)
-    val MITHRIL_SHOVEL = MyShovelItem(ToolMaterials.MITHRIL, 1f, -3f)
-    val MITHRIL_AXE = MyAxeItem(ToolMaterials.MITHRIL, 3f, -3f)
-    val MITHRIL_HOE = MyHoeItem(ToolMaterials.MITHRIL, 1, -3f)
+    val IRON_SWORD = MySwordItem(ToolMaterials.IRON_2, 8, -2.8F)
+    val IRON_AXE = MyAxeItem(ToolMaterials.IRON_3, 7, -3f)
+    val IRON_PICKAXE = MyPickaxeItem(ToolMaterials.IRON_3, 6, -2.8f)
+    val IRON_SHOVEL = MyShovelItem(ToolMaterials.IRON_1, 5, -3f)
+    val IRON_HOE = MyHoeItem(ToolMaterials.IRON_2, 5, -3f)
 
-    val ADAMANTITE_SWORD = MySwordItem(ToolMaterials.ADAMANTITE, 4, -2.4F)
-    val ADAMANTITE_PICKAXE = MyPickaxeItem(ToolMaterials.ADAMANTITE, 2f, -2.8f)
-    val ADAMANTITE_SHOVEL = MyShovelItem(ToolMaterials.ADAMANTITE, 1f, -3f)
-    val ADAMANTITE_AXE = MyAxeItem(ToolMaterials.ADAMANTITE, 3f, -3f)
-    val ADAMANTITE_HOE = MyHoeItem(ToolMaterials.ADAMANTITE, 1, -3f)
+    val MITHRIL_SWORD = MySwordItem(ToolMaterials.MITHRIL_2, 9, -2.4F)
+    val MITHRIL_AXE = MyAxeItem(ToolMaterials.MITHRIL_3, 8, -3f)
+    val MITHRIL_PICKAXE = MyPickaxeItem(ToolMaterials.MITHRIL_3, 7, -2.8f)
+    val MITHRIL_SHOVEL = MyShovelItem(ToolMaterials.MITHRIL_1, 6, -3f)
+    val MITHRIL_HOE = MyHoeItem(ToolMaterials.MITHRIL_2, 6, -3f)
+
+    val ADAMANTITE_SWORD = MySwordItem(ToolMaterials.ADAMANTITE_2, 10, -2.4F)
+    val ADAMANTITE_AXE = MyAxeItem(ToolMaterials.ADAMANTITE_3, 9, -3f)
+    val ADAMANTITE_PICKAXE = MyPickaxeItem(ToolMaterials.ADAMANTITE_3, 8, -2.8f)
+    val ADAMANTITE_SHOVEL = MyShovelItem(ToolMaterials.ADAMANTITE_1, 7, -3f)
+    val ADAMANTITE_HOE = MyHoeItem(ToolMaterials.ADAMANTITE_2, 7, -3f)
 
     val items = listOf(
         Pair("nuggets/copper", COPPER_NUGGET),
@@ -61,6 +58,12 @@ object RegisterItem {
         Pair("ingots/adamantite", ADAMANTITE_INGOT),
         Pair("ingots/raw_adamantite", RAW_ADAMANTITE),
         Pair("nuggets/adamantite", ADAMANTITE_NUGGET),
+
+        Pair("tools/flint_knife", FLINT_KNIFE),
+        Pair("tools/flint_hatchet", FLINT_HATCHET),
+
+        Pair("tools/flint_axe", FLINT_AXE),
+        Pair("tools/flint_shovel", FLINT_SHOVEL),
 
         Pair("tools/copper_sword", COPPER_SWORD),
         Pair("tools/copper_pickaxe", COPPER_PICKAXE),

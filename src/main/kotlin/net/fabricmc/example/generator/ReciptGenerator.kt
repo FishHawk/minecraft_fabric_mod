@@ -33,6 +33,15 @@ private val oreBundles = listOf(
         raw = RegisterItem.RAW_MITHRIL,
         ingot = RegisterItem.MITHRIL_INGOT,
         nugget = RegisterItem.MITHRIL_NUGGET,
+    ),
+    OreBundle(
+        stoneVariant = RegisterBlock.ADAMANTITE_BLOCK_ITEM,
+        deepslateVariant = RegisterBlock.DEEPSLATE_ADAMANTITE_ORE_ITEM,
+        block = RegisterBlock.ADAMANTITE_BLOCK_ITEM,
+        rawBlock = RegisterBlock.RAW_ADAMANTITE_BLOCK_ITEM,
+        raw = RegisterItem.RAW_ADAMANTITE,
+        ingot = RegisterItem.ADAMANTITE_INGOT,
+        nugget = RegisterItem.ADAMANTITE_NUGGET,
     )
 )
 
